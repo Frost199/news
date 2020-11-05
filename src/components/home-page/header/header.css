@@ -1,0 +1,67 @@
+.navbar {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    left: 0;
+    position: fixed;
+    right: 0;
+    -webkit-transition: all 300ms linear;
+    -moz-transition: all 300ms linear;
+    -ms-transition: all 300ms linear;
+    -o-transition: all 300ms linear;
+    transition: all 300ms linear;
+    top: 0;
+    width: 100%;
+    z-index: 8;
+}
+
+.sicky_navbar {
+    -webkit-box-shadow: 0 8px 6px -9px #999;
+    -moz-box-shadow: 0 8px 6px -9px #999;
+    box-shadow: 0 8px 6px -9px #999;
+}
+
+header .logo p {
+    color: #333333;
+    font-family: "Oswald", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+header .logo p span {
+    color: #FF0000;
+}
+
+.input-icon {
+    align-items: center;
+    position: relative;
+    display: flex;
+}
+
+.input-icon .icon {
+    left: 16px;
+    color: #bdbdbd;
+    width: 16px;
+    height: 16px;
+    min-width: 10px;
+    position: absolute;
+    text-align: center;
+}
+
+@media only screen and (max-width: 360px) {
+    .input-icon {
+        width: 100%;
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+    header .logo p {
+        font-size: 32px;
+        line-height: 47px;
+    }
+}

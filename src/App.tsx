@@ -1,26 +1,12 @@
-import React, { CSSProperties } from 'react';
-import { PrimaryButton, SecondaryButton, TertiaryButton } from './components/lib/button';
+import React from 'react';
+import Home from './components/home-page/home';
+
+import './app.css';
 
 const App: React.FC = () => {
 
-  const backgroundCSS: CSSProperties = {
-    background: 'antiquewhite',
-  };
-
   return (
-    <div style={backgroundCSS}>
-      <PrimaryButton>
-        Hello
-      </PrimaryButton>
-
-      <SecondaryButton>
-        Hello
-      </SecondaryButton>
-
-      <TertiaryButton>
-        Hello
-      </TertiaryButton>
-    </div>
+    <Home/>
   );
 };
 
