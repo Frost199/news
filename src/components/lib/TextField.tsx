@@ -38,8 +38,8 @@ const InputSearch = styled(Input)`
     width: 200px;
     
     @media only screen and (max-width: 400px) {
-    display: block;
-      width: 150px;
+      display: block;
+      width: 100%;
     }
   }
 `;
