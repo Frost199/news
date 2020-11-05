@@ -4,6 +4,7 @@ interface IProcessedResponse {
   description: string;
   publishedAt: string;
   urlToImage: string;
+  totalResult: number;
 }
 
 export interface IBannerState {

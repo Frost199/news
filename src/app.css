@@ -7,6 +7,10 @@
     width: 100%;
 }
 
+.border-medium {
+    margin: 2rem 0;
+}
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .container {
