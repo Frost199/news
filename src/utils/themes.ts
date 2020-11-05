@@ -11,6 +11,8 @@ export const defaultTheme = {
   textColorLight: neutral[600],
   textColor: neutral[700],
   textColorInverted: neutral[500],
+  textFieldBackground: neutral[300],
+  textFieldLabelColor: neutral[500],
   primaryFont,
   secondaryFont,
   tertiaryFont
