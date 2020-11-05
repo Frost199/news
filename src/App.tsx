@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { CSSProperties } from 'react';
+import { PrimaryButton, SecondaryButton, TertiaryButton } from './components/lib/button';
 
-function App() {
+const App: React.FC = () => {
+
+  const backgroundCSS: CSSProperties = {
+    background: 'antiquewhite',
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={backgroundCSS}>
+      <PrimaryButton>
+        Hello
+      </PrimaryButton>
+
+      <SecondaryButton>
+        Hello
+      </SecondaryButton>
+
+      <TertiaryButton>
+        Hello
+      </TertiaryButton>
     </div>
   );
-}
+};
 
 export default App;
