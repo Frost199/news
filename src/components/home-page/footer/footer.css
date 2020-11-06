@@ -1,0 +1,7 @@
+.footer-container {
+    position: absolute;
+}
+.footer-barrier {
+    border-top: 1px solid gray;
+    margin-top: 2rem;
+}

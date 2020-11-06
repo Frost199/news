@@ -61,6 +61,7 @@ const NewsList: React.FC<IBannerProps> = props => {
 
   const opacitySwitching = useSpring({
     opacity: isFilter ? 1 : 0,
+    // display: isFilter ? 'flex': 'none',
   });
 
   const animate = () => {
