@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 import { HttpClient } from '../httpService';
 import { INewsData } from './NewsDataInterface';
@@ -35,5 +35,8 @@ export class NewsAPIService extends HttpClient {
     ]);
   };
 
-  // public getUser = (id: string) => this.instance.get<User>(`/users/${id}`);
+  public searchNews = (param: string): Promise<INewsData> => {
+    const searchParam = `everything?q=${param}`;
+    return this.instance.get(searchParam);
+  };
 }

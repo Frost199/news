@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import * as _ from 'styled-components/cssprop';
+// import {} from 'styled-components/cssprop';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -9,10 +8,8 @@ import { GlobalStyle } from './utils';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App/>
-      <GlobalStyle/>
-    </BrowserRouter>
+    <App/>
+    <GlobalStyle/>
   </React.StrictMode>,
   document.getElementById('root'),
 );

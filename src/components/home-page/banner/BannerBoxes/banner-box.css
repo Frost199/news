@@ -7,7 +7,7 @@
     position: relative;
 }
 
-.banner-box-inner .overlay {
+.overlay {
     position: absolute; /* Sit on top of the page content */
     display: block; /* Hidden by default */
     width: 100%; /* Full width (cover the whole page) */

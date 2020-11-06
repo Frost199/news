@@ -10,8 +10,8 @@ import Category from './category/category';
 import Header from './header/header';
 import NewsList from './news-list/news-list';
 
-const modifyArrayFromServer = (articleArray: IArticle[], category: string): IArticleWithCategory[] => {
-  const arrayLength = articleArray.length > 5 ? 5 : articleArray.length;
+const modifyArrayFromServer = (articleArray: IArticle[], category: string, lengthOfArticle: number): IArticleWithCategory[] => {
+  const arrayLength = articleArray.length > lengthOfArticle ? lengthOfArticle : articleArray.length;
   let articleWithCategory: IArticleWithCategory[] = [];
   for (let i = 0; i < arrayLength; i += 1) {
     articleWithCategory.push({ ...articleArray[i], category });
@@ -23,6 +23,9 @@ const Home: React.FC = () => {
 
   const [width, setWidth] = useState(0);
   const [change, setChange] = useState(false);
+  const [search, setSearch] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+
   const [dataWithCategories, setDataWithCategories] = React.useState<IBannerStateWithCategory>({
     response: [],
     error: false,
@@ -33,6 +36,15 @@ const Home: React.FC = () => {
     error: false,
     loading: true,
   });
+
+  const setStateForSearch = (searchValueFromResponse: string) => {
+    setSearch(true);
+    setSearchValue(searchValueFromResponse);
+  };
+
+  const unSetStateForSearch = () => {
+    setSearch(false);
+  };
 
   const generatedBrowserWidth: IBrowserWidth = { browserWidth: 0 };
   generatedBrowserWidth.browserWidth = width;
@@ -75,7 +87,19 @@ const Home: React.FC = () => {
 
   React.useEffect((): void => {
     const newsApi = new NewsAPIService();
-    newsApi.getTopHeadlines()
+    if (search) {
+      newsApi.searchNews(searchValue).then((data) => {
+        let { articles } = data;
+        articles = articles.filter(value => value.author !== null || value.urlToImage !== null);
+        const articlesWithCategory = modifyArrayFromServer(articles, 'All', 15);
+        const shuffledNews: IArticleWithCategory[] = shuffle(articlesWithCategory);
+        setDataWithCategories({
+          response: shuffledNews,
+          error: false,
+          loading: false,
+        });
+      });
+    } else newsApi.getTopHeadlines()
       .then(axios.spread((bitcoin, usHeadline, techCrunch) => {
         let { articles: bitcoinArticleArray, totalResults: bitcoinTotalResult } = bitcoin;
         let { articles: usHeadLineArticleArray, totalResults: usHeadLineTotalResult } = usHeadline;
@@ -95,9 +119,9 @@ const Home: React.FC = () => {
          *  modify response to have category attribute in each of them,
          *  and also make sure it does not exceed 5 contents in the array
          */
-        const bitcoinCategoryOfAtMost5InArray = modifyArrayFromServer(bitcoinArticleArray, 'Bitcoin');
-        const usHeadlineCategoryOfAtMost5InArray = modifyArrayFromServer(usHeadLineArticleArray, 'US Headline');
-        const techCrunchCategoryOfAtMost5InArray = modifyArrayFromServer(techCrunchArticleArray, 'TechCrunch');
+        const bitcoinCategoryOfAtMost5InArray = modifyArrayFromServer(bitcoinArticleArray, 'Bitcoin', 5);
+        const usHeadlineCategoryOfAtMost5InArray = modifyArrayFromServer(usHeadLineArticleArray, 'US Headline', 5);
+        const techCrunchCategoryOfAtMost5InArray = modifyArrayFromServer(techCrunchArticleArray, 'TechCrunch', 5);
 
         const shuffledNews: IArticleWithCategory[] = shuffle([
           ...bitcoinCategoryOfAtMost5InArray,
@@ -117,11 +141,12 @@ const Home: React.FC = () => {
           loading: false,
         });
       }));
-  }, []);
+  }, [search, searchValue]);
 
   return (
     <React.Fragment>
-      <Header changeVertical={change} width={generatedBrowserWidth}/>
+      <Header unSetSearchState={unSetStateForSearch} setSearchState={setStateForSearch} changeVertical={change}
+              width={generatedBrowserWidth}/>
       <Banner data={data} width={generatedBrowserWidth}/>
       <Category data={data}/>
       <NewsList data={dataWithCategories} width={generatedBrowserWidth}/>

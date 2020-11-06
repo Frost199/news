@@ -48,9 +48,24 @@ interface IEmailProps {
   placeHolder: string;
 }
 
-export const SearchInput = ({ placeHolder }: IEmailProps) => (
+interface IInputProps {
+  placeHolder: string;
+  onChange: any;
+  value: any;
+  name: string
+  onKeyDown?: any;
+}
+
+export const SearchInput = ({ placeHolder, onChange, value, name, onKeyDown }: IInputProps) => (
   <div className="input-icon">
     <FontAwesomeIcon className="icon" icon={faSearch} size="xs"/>
-    <InputSearch aria-label='search' theme={defaultTheme} id="email" type="email" placeholder={placeHolder}/>
+    <InputSearch onKeyDown={onKeyDown} onChange={onChange} value={value} name={name} aria-label='search' theme={defaultTheme} id="email" type="email" placeholder={placeHolder}/>
+  </div>
+);
+
+export const BasicInput = ({ placeHolder, onChange, value, name }: IInputProps) => (
+  <div className="input-icon">
+    <InputSearch value={value} onChange={onChange} aria-label={`${name} input`} theme={defaultTheme} type="text"
+                name={name} placeholder={placeHolder}/>
   </div>
 );

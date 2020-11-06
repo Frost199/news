@@ -31,10 +31,19 @@ export const SecondaryButton = styled(Button)`
   background: none;
   border: 1px solid ${defaultTheme.textColorLight};
   color: ${defaultTheme.textColorOnPrimary};
+  width: auto;
+`;
+
+export const SecondaryButtonDisabled = styled(SecondaryButton)`
+  &[disabled] {
+    
+  }
 `;
 
 export const TertiaryButton = styled(Button)`
-  background: none;
+  background: ${defaultTheme.textFieldBackground};
   border: 1px solid ${defaultTheme.primaryColorLight};
-  color: ${defaultTheme.primaryColorLight};
+  color: ${defaultTheme.textFieldLabelColor};
+  height: 56px;
+  width: auto;
 `;

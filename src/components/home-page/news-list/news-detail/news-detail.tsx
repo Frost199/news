@@ -29,12 +29,15 @@ const NewsDetail: React.FC<INewsDetail> = props => {
           backgroundSize: 'cover',
         }}
       >
+        <div className='overlay'>
+        </div>
+        <p>{truncate(props.data.description, 80)}</p>
       </div>
 
       <div className="details-container">
         <div className="title-holder">
           <p className="category">{props.data.category}<span className="description">
-            {truncate(`${props.data.description}`, 36)}
+            {truncate(`${props.data.title}`, 40)}
           </span></p>
         </div>
 
