@@ -7,6 +7,7 @@ import { shuffle } from '../lib/shuffle-array';
 import Banner from './banner/banner';
 import { IBannerState, IBannerStateWithCategory } from './banner/bannerState';
 import Category from './category/category';
+import Footer from './footer/footer';
 import Header from './header/header';
 import NewsList from './news-list/news-list';
 
@@ -150,6 +151,7 @@ const Home: React.FC = () => {
       <Banner data={data} width={generatedBrowserWidth}/>
       <Category data={data}/>
       <NewsList data={dataWithCategories} width={generatedBrowserWidth}/>
+      <Footer />
     </React.Fragment>
   );
 };
