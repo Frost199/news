@@ -42,9 +42,9 @@ const NewsList: React.FC<IBannerProps> = props => {
     if (sources && author && publishedDate) {
       const publishedAtDate = moment(publishedDate).format('LL').toString() || publishedDate;
       setFilteredInput((filteredInput) => filteredInput.filter(data => {
-        return (data.title.includes(sources) ||
-          data.author.includes(author) ||
-          moment(data.publishedAt).format('LL').toString().includes(publishedAtDate));
+        return (data.title?.includes(sources) ||
+          data.author?.includes(author) ||
+          moment(data.publishedAt).format('LL')?.toString()?.includes(publishedAtDate));
       }));
     }
   }, [author, publishedDate, sources, props.data.response]);
