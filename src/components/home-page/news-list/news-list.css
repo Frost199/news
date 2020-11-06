@@ -1,0 +1,14 @@
+.news-list-container {
+    margin: 2rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-list-container__bottom {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}

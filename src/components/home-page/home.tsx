@@ -1,17 +1,38 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { NewsAPIService } from '../../services/NewsAPI/NewsAPIService';
-import { IArticle } from '../../services/NewsAPI/NewsDataInterface';
+import { IArticle, IArticleWithCategory } from '../../services/NewsAPI/NewsDataInterface';
 import IBrowserWidth from '../../utils/browser-width-interface';
+import { shuffle } from '../lib/shuffle-array';
 import Banner from './banner/banner';
-import { IBannerState } from './banner/bannerState';
+import { IBannerState, IBannerStateWithCategory } from './banner/bannerState';
 import Category from './category/category';
 import Header from './header/header';
+import NewsList from './news-list/news-list';
+
+const modifyArrayFromServer = (articleArray: IArticle[], category: string): IArticleWithCategory[] => {
+  const arrayLength = articleArray.length > 5 ? 5 : articleArray.length;
+  let articleWithCategory: IArticleWithCategory[] = [];
+  for (let i = 0; i < arrayLength; i += 1) {
+    articleWithCategory.push({ ...articleArray[i], category });
+  }
+  return articleWithCategory;
+};
 
 const Home: React.FC = () => {
 
   const [width, setWidth] = useState(0);
   const [change, setChange] = useState(false);
+  const [dataWithCategories, setDataWithCategories] = React.useState<IBannerStateWithCategory>({
+    response: [],
+    error: false,
+    loading: true,
+  });
+  const [data, setData] = React.useState<IBannerState>({
+    response: [],
+    error: false,
+    loading: true,
+  });
 
   const generatedBrowserWidth: IBrowserWidth = { browserWidth: 0 };
   generatedBrowserWidth.browserWidth = width;
@@ -52,30 +73,48 @@ const Home: React.FC = () => {
     return { author, title, description, publishedAt, urlToImage, totalResult };
   };
 
-  const [data, setData] = React.useState<IBannerState>({
-    response: [],
-    error: false,
-    loading: true,
-  });
-
   React.useEffect((): void => {
     const newsApi = new NewsAPIService();
     newsApi.getTopHeadlines()
       .then(axios.spread((bitcoin, usHeadline, techCrunch) => {
-        const { articles: bitcoinArticleArray, totalResults: bitcoinTotalResult } = bitcoin;
-        const { articles: usHeadLineArticleArray, totalResults: usHeadLineTotalResult } = usHeadline;
-        const { articles: techCrunchArticleArray, totalResults: techCrunchTotalResult } = techCrunch;
+        let { articles: bitcoinArticleArray, totalResults: bitcoinTotalResult } = bitcoin;
+        let { articles: usHeadLineArticleArray, totalResults: usHeadLineTotalResult } = usHeadline;
+        let { articles: techCrunchArticleArray, totalResults: techCrunchTotalResult } = techCrunch;
 
-        const bitcoinArticle = returnData(bitcoinArticleArray[0], bitcoinTotalResult);
-        const usHeadLineArticle = returnData(usHeadLineArticleArray[0], usHeadLineTotalResult);
-        const techCrunchArticle = returnData(techCrunchArticleArray[0], techCrunchTotalResult);
+        const singleBitcoinArticle = returnData(bitcoinArticleArray[0], bitcoinTotalResult);
+        const singleUsHeadLineArticle = returnData(usHeadLineArticleArray[0], usHeadLineTotalResult);
+        const singleTechCrunchArticle = returnData(techCrunchArticleArray[0], techCrunchTotalResult);
 
-        const data = [bitcoinArticle, usHeadLineArticle, techCrunchArticle];
+        const data = [singleBitcoinArticle, singleUsHeadLineArticle, singleTechCrunchArticle];
+
+        bitcoinArticleArray = bitcoinArticleArray.filter(value => value.author !== null || value.urlToImage !== null);
+        usHeadLineArticleArray = usHeadLineArticleArray.filter(value => value.author !== null || value.urlToImage !== null);
+        techCrunchArticleArray = techCrunchArticleArray.filter(value => value.author !== null || value.urlToImage !== null);
+
+        /*
+         *  modify response to have category attribute in each of them,
+         *  and also make sure it does not exceed 5 contents in the array
+         */
+        const bitcoinCategoryOfAtMost5InArray = modifyArrayFromServer(bitcoinArticleArray, 'Bitcoin');
+        const usHeadlineCategoryOfAtMost5InArray = modifyArrayFromServer(usHeadLineArticleArray, 'US Headline');
+        const techCrunchCategoryOfAtMost5InArray = modifyArrayFromServer(techCrunchArticleArray, 'TechCrunch');
+
+        const shuffledNews: IArticleWithCategory[] = shuffle([
+          ...bitcoinCategoryOfAtMost5InArray,
+          ...usHeadlineCategoryOfAtMost5InArray,
+          ...techCrunchCategoryOfAtMost5InArray,
+        ]);
 
         setData({
           error: false,
           loading: false,
           response: data,
+        });
+
+        setDataWithCategories({
+          response: shuffledNews,
+          error: false,
+          loading: false,
         });
       }));
   }, []);
@@ -85,7 +124,7 @@ const Home: React.FC = () => {
       <Header changeVertical={change} width={generatedBrowserWidth}/>
       <Banner data={data} width={generatedBrowserWidth}/>
       <Category data={data}/>
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <NewsList data={dataWithCategories} width={generatedBrowserWidth}/>
     </React.Fragment>
   );
 };

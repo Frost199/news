@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react';
 
 import './banner-box.css';
+import { truncate } from '../../../lib/truncate-words';
 import { IBannerState } from '../bannerState';
 import authorImage1 from '../../../../assets/author-img-0.png';
 import authorImage2 from '../../../../assets/author-img-1.png';
@@ -15,10 +16,6 @@ interface IBannerBox {
 const BannerBox: React.FC<IBannerBox> = props => {
   const mediaOutlets = ['TechCrunch', 'US Headlines', 'Bitcoin'];
   const authorImages = [authorImage1, authorImage2, authorImage3];
-
-  const truncate = (str: string): string => {
-    return str.length > 60 ? str.substring(0, 60) + '...' : str;
-  };
 
   return (
     <div className='banner-box-container'>
@@ -57,6 +54,8 @@ const BannerBox: React.FC<IBannerBox> = props => {
             style={{
               backgroundImage: `url('${article.urlToImage}')`,
               backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
             }}>
             <div className='overlay'>
             </div>
@@ -70,7 +69,7 @@ const BannerBox: React.FC<IBannerBox> = props => {
 
               <div className="news-sub-content">
                 <p id="article-outlet">{mediaOutlets[index]}</p>
-                <p id="article-description">{truncate(article.description)}</p>
+                <p id="article-description">{truncate(article.description, 60)}</p>
               </div>
             </div>
           </div>,

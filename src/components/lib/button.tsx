@@ -4,14 +4,16 @@ import { defaultTheme, typeScale } from '../../utils';
 const Button = styled.button`
   cursor: pointer;
   font-size: ${typeScale.paragraph};
-  min-width: 48px ;
-  padding: 12px 24px;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
   font-family: ${defaultTheme.primaryFont};
   
   &:disabled {
     cursor: not-allowed;
   }
 `;
+
 
 export const PrimaryButton = styled(Button)`
   background-color: ${defaultTheme.secondaryColor};

@@ -1,0 +1,110 @@
+.news-detail-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 450px;
+    margin-bottom: 1rem;
+}
+
+.news-detail-container .image-container {
+    height: 255px;
+}
+
+.news-detail-container .details-container {
+    display: flex;
+    flex-direction: column;
+    height: 123px;
+    margin-top: 24px;
+}
+
+.news-detail-container .details-container .title-holder .category {
+    color: #FF0000;
+    font-family: "Oswald", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.news-detail-container .details-container .title-holder .category span {
+    color: #333333;
+    display: block;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.news-detail-container .details-container .body-holder {
+    align-content: center;
+    display: flex;
+    height: 60px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.news-detail-container .details-container .body-holder .article-info {
+    display: flex;
+    height: inherit;
+    align-content: center;
+}
+
+.news-detail-container .details-container .body-holder .article-info img {
+    width: 40px;
+    height: 40px;
+}
+
+.news-detail-container .details-container .body-holder .article-info .info-inner {
+    padding: 3px;
+}
+
+.news-detail-container .details-container .body-holder .article-info p {
+    color: #333333;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0;
+}
+
+.news-detail-container .details-container .body-holder .article-info p span {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    color: #828282;
+    display: block;
+}
+
+.news-detail-container .details-container .body-holder .article-button a {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    text-decoration: none;
+    transition: background-color 0.2s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.news-detail-container .details-container .body-holder .article-button a:hover {
+    background-color: #e90202;
+    color: #e5e5e5;
+}
+
+@media only screen and (min-width: 595px) {
+    .news-detail-container {
+        width: 48%;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .news-detail-container {
+        width: 32%;
+    }
+}
