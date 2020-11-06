@@ -5,7 +5,7 @@ import { INewsData } from './NewsDataInterface';
 
 export class NewsAPIService extends HttpClient {
   public constructor() {
-    super('http://newsapi.org/v2/'); // TODO: change empty sting to http://newsapi.org/v2/
+    super('https://newsapi.org/v2/'); // TODO: change empty sting to http://newsapi.org/v2/
 
     this._initializeRequestInterceptor();
   }
