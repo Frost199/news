@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import './header.css';
 import IBrowserWidth from '../../../utils/browser-width-interface';
@@ -9,6 +9,7 @@ interface HeaderProps {
   width: IBrowserWidth;
 
   setSearchState(searchValue: string): void;
+
   unSetSearchState(): void;
 }
 
@@ -19,7 +20,7 @@ const Header: React.FC<HeaderProps> = props => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && search) {
       props.setSearchState(search);
-    }else if (!search){
+    } else if (!search) {
       props.unSetSearchState();
     }
   };

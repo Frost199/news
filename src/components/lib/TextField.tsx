@@ -44,10 +44,6 @@ const InputSearch = styled(Input)`
   }
 `;
 
-interface IEmailProps {
-  placeHolder: string;
-}
-
 interface IInputProps {
   placeHolder: string;
   onChange: any;

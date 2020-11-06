@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios  from 'axios';
 import { AxiosRequestConfig } from 'axios';
 import { HttpClient } from '../httpService';
 import { INewsData } from './NewsDataInterface';
